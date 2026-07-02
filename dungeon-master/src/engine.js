@@ -242,7 +242,6 @@ export class GameEngine {
         if (idx !== -1) entry.tapWaiters.splice(idx, 1);
         resolve(false);
       }, timeoutMs);
-      waiter.timer.unref?.();
       waiter.resolve = resolve;
       entry.tapWaiters.push(waiter);
     });
@@ -282,7 +281,6 @@ export class GameEngine {
         if (idx !== -1) this.#actionWaiters.splice(idx, 1);
         resolve(null);
       }, timeoutMs);
-      waiter.timer.unref?.();
       this.#actionWaiters.push(waiter);
     });
   }
