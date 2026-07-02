@@ -85,7 +85,8 @@ export function startWebServer({ engine, port }) {
     });
   });
 
-  const wss = new WebSocketServer({ server });
+  // maxPayload: 폰 클라이언트 메시지는 짧다(자유 입력 200자). 거대 프레임은 거부.
+  const wss = new WebSocketServer({ server, maxPayload: 64 * 1024 });
 
   wss.on("connection", (ws) => {
     const state = engine.getState();
@@ -123,6 +124,7 @@ export function startWebServer({ engine, port }) {
     switch (msg.type) {
       case "choice": {
         const { player_id, choice_id } = msg;
+        if (typeof player_id !== "string" || typeof choice_id !== "string") return;
         const choices = engine.getState()?.scene?.choices ?? [];
         const found = Array.isArray(choices) ? choices.find((c) => c && c.id === choice_id) : null;
         const label = found?.label ?? choice_id;
@@ -131,8 +133,10 @@ export function startWebServer({ engine, port }) {
       }
       case "free_text": {
         const { player_id, text } = msg;
+        if (typeof player_id !== "string") return;
         if (typeof text !== "string" || text.trim() === "") return;
-        engine.pushAction({ kind: "free_text", player_id, text });
+        // UI 입력창은 maxlength=200 — 그보다 훨씬 긴 텍스트는 잘라서 전달
+        engine.pushAction({ kind: "free_text", player_id, text: text.slice(0, 500) });
         break;
       }
       case "roll": {

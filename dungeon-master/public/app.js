@@ -90,7 +90,23 @@ function renderConn(on) {
 // ── 렌더: 전체 상태 ──────────────────────────────────────────
 
 function renderState(state) {
+  const prevGameId = app.state?.game_id;
   app.state = state;
+
+  // 새 게임(다른 game_id)이 시작되면 이전 게임의 흔적을 정리:
+  // 플레이어 정체성/장면 지문/입력 잠금 초기화 + 이전 게임의 오버레이 제거.
+  if (prevGameId !== undefined && state.game_id !== prevGameId) {
+    app.myId = null;
+    app.sceneKey = null;
+    app.pendingAction = false;
+    stopTypewriter();
+    hide("gameover-overlay");
+    hide("dice-overlay");
+    hide("roll-result-overlay");
+    hide("other-roll-banner");
+    hide("dm-thinking");
+    hide("me-label");
+  }
 
   if (state.title) $("game-title").textContent = state.title;
 

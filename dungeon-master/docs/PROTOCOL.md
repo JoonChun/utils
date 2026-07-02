@@ -147,6 +147,6 @@ engine 생성 → web-server 기동(PORT 환경변수, 기본 8765) → MCP conn
 ## 코딩 규약
 
 - Node 22, **ESM** (`"type":"module"`), TypeScript 없음, 빌드 스텝 없음.
-- 의존성은 `@modelcontextprotocol/sdk`, `ws` 두 개만. UI는 vanilla JS/CSS (CDN 금지, 오프라인 동작).
+- 의존성은 `@modelcontextprotocol/sdk`, `ws`, `zod`(MCP tool 입력 스키마용) 세 개만. UI는 vanilla JS/CSS (CDN 금지, 오프라인 동작).
 - UI 언어는 한국어. 모바일 우선(세로 화면 기준).
 - 테스트는 `node --test` (test/*.test.js).

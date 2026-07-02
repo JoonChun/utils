@@ -267,6 +267,8 @@ export class GameEngine {
       waiter.resolve(action);
     } else {
       this.#actionQueue.push(action);
+      // 폭주 방지: 아무도 대기하지 않는 동안 큐가 무한히 자라지 않게 오래된 것부터 버림
+      if (this.#actionQueue.length > 100) this.#actionQueue.shift();
     }
   }
 
