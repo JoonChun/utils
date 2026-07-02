@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#120d1d">
+<title>🐉 AI 던전 마스터</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- ═══ 상단 바 ═══ -->
+<header id="topbar">
+  <div class="topbar-left">
+    <span class="logo">🐉</span>
+    <div class="title-wrap">
+      <h1 id="game-title">AI 던전 마스터</h1>
+      <span id="me-label" class="me-label hidden"></span>
+    </div>
+  </div>
+  <div class="conn" title="서버 연결 상태">
+    <span id="conn-dot" class="dot dot-off"></span>
+    <span id="conn-text" class="conn-text">연결 중…</span>
+  </div>
+</header>
+
+<main id="board">
+
+  <!-- ═══ 장면 ═══ -->
+  <section id="scene-section" class="hidden">
+    <div id="mood-banner" class="mood-banner">
+      <span id="mood-emoji">🕯️</span>
+      <span id="mood-label">일상</span>
+    </div>
+    <div id="scene-card" class="scene-card">
+      <h2 id="scene-title" class="scene-title"></h2>
+      <div id="narration" class="narration" title="탭하면 전체 표시"></div>
+    </div>
+
+    <div id="other-roll-banner" class="other-roll-banner hidden"></div>
+
+    <div id="choices" class="choices"></div>
+
+    <div id="free-text-row" class="free-text-row hidden">
+      <input id="free-text-input" type="text" maxlength="200"
+             placeholder="직접 행동을 입력하세요… (예: 천장을 살펴본다)" autocomplete="off">
+      <button id="free-text-send" class="btn-action">행동!</button>
+    </div>
+
+    <div id="dm-thinking" class="dm-thinking hidden">
+      <span class="dm-dice">🎲</span> 던전마스터가 이야기를 잇는 중<span class="ellipsis"></span>
+    </div>
+  </section>
+
+  <!-- 장면 없음 (게임 중, scene null) -->
+  <section id="no-scene" class="no-scene hidden">
+    <div class="no-scene-inner">🕯️ 던전마스터가 첫 장면을 준비하는 중…</div>
+  </section>
+
+  <!-- ═══ 파티 ═══ -->
+  <section id="party-section" class="hidden">
+    <h3 class="section-heading">⚔️ 파티</h3>
+    <div id="party" class="party"></div>
+  </section>
+
+  <!-- ═══ 모험 기록 ═══ -->
+  <section id="log-section" class="hidden">
+    <button id="log-toggle" class="log-toggle" type="button">
+      <span>📜 모험 기록</span><span id="log-arrow" class="log-arrow">▾</span>
+    </button>
+    <div id="log-body" class="log-body hidden"></div>
+  </section>
+
+</main>
+
+<!-- ═══ 대기 화면 (게임 시작 전) ═══ -->
+<div id="waiting-screen" class="overlay">
+  <div class="waiting-inner">
+    <div class="waiting-emblem">🏰</div>
+    <h2 class="overlay-title">AI 던전 마스터</h2>
+    <div class="waiting-spinner">✦</div>
+    <p class="waiting-text">던전마스터(Claude)가 게임을 시작하길<br>기다리는 중<span class="ellipsis"></span></p>
+    <p class="waiting-hint">start_game 호출 필요</p>
+  </div>
+</div>
+
+<!-- ═══ 플레이어 선택 ═══ -->
+<div id="player-select" class="overlay hidden">
+  <div class="select-inner">
+    <div class="select-emblem">🧭</div>
+    <h2 class="overlay-title">누구로 플레이하나요?</h2>
+    <p class="select-sub">모험에 참가할 영웅을 선택하세요</p>
+    <div id="player-select-list" class="player-select-list"></div>
+  </div>
+</div>
+
+<!-- ═══ 주사위 오버레이 ═══ -->
+<div id="dice-overlay" class="overlay hidden">
+  <div class="dice-inner">
+    <p id="dice-reason" class="dice-reason"></p>
+    <p id="dice-dc" class="dice-dc hidden"></p>
+    <p id="dice-notation" class="dice-notation"></p>
+    <button id="dice-button" class="dice-button" type="button">
+      <span class="dice-emoji">🎲</span>
+      <span class="dice-btn-label">주사위 굴리기!</span>
+    </button>
+    <div id="dice-rolling" class="dice-rolling hidden">
+      <span class="dice-emoji rolling">🎲</span>
+      <p class="rolling-text">운명이 결정되는 중<span class="ellipsis"></span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 주사위 결과 ═══ -->
+<div id="roll-result-overlay" class="overlay hidden">
+  <div class="result-inner">
+    <p id="result-player" class="result-player"></p>
+    <div id="result-breakdown" class="result-breakdown"></div>
+    <div id="result-total" class="result-total"></div>
+    <div id="result-verdict" class="result-verdict hidden"></div>
+  </div>
+</div>
+
+<!-- ═══ 게임 종료 ═══ -->
+<div id="gameover-overlay" class="overlay hidden">
+  <div class="gameover-inner">
+    <div class="gameover-castle">🏰</div>
+    <div class="the-end">⚜ THE END ⚜</div>
+    <div class="gameover-divider">✦ ✦ ✦</div>
+    <p id="epilogue" class="epilogue"></p>
+    <button id="restart-btn" class="btn-action btn-restart" type="button">처음으로</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
