@@ -92,7 +92,7 @@ function renderConn(on) {
 function renderState(state) {
   app.state = state;
 
-  if (state.title) $("game-title").textContent = "🐉 " + state.title;
+  if (state.title) $("game-title").textContent = state.title;
 
   // 게임 종료 상태
   if (state.status === "over") {
@@ -200,7 +200,7 @@ function renderParty(players) {
     const items = (p.items || [])
       .map((it) => `<span class="item-chip">🎒 ${esc(it)}</span>`).join("");
     const effects = (p.status_effects || [])
-      .map((ef) => `<span class="status-badge">☠ ${esc(ef)}</span>`).join("");
+      .map((ef) => `<span class="status-badge">☠️ ${esc(ef)}</span>`).join("");
 
     card.innerHTML = `
       <div class="pc-head">

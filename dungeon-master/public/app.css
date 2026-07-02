@@ -212,8 +212,8 @@ input  { font-family: inherit; }
   background: linear-gradient(180deg, #2a2141, #211a35);
   color: var(--parchment);
   box-shadow: 0 3px 12px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
-  transition: transform .08s, border-color .2s, box-shadow .2s;
-  animation: rise-in .35s ease both;
+  transition: transform .08s, border-color .2s, box-shadow .2s, opacity .3s;
+  animation: rise-in .35s ease backwards;
 }
 .choice-btn:active { transform: scale(.975); border-color: var(--gold-bright); }
 .choice-btn:disabled { opacity: .35; pointer-events: none; }
