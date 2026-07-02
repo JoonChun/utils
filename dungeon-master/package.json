@@ -1,0 +1,15 @@
+{
+  "name": "dungeon-master",
+  "version": "0.1.0",
+  "description": "AI Dungeon Master board game — Claude runs the story via MCP, players play on their phone browser",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "ws": "^8.18.0"
+  }
+}
